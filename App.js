@@ -16,7 +16,7 @@ export default function App() {
                 <ImageViewer placeholderImageSource={PlaceholderImage}/>
             </View>
             <View style={styles.buttonsContainer}>
-                <Button label={'Поздороваться'}/>
+                <Button label={'Поздороваться'} theme={'hi'}/>
                 <Button label={'Созвон?'}/>
             </View>
 
