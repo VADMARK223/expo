@@ -2,6 +2,8 @@ import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import ImageViewer from "./src/ImageViewer";
 import Button from "./src/Button"
+import IconButton from "./src/IconButton";
+import CircleButton from "./src/CircleButton";
 
 const PlaceholderImage = require('./assets/and.jpg')
 
@@ -18,6 +20,14 @@ export default function App() {
             <View style={styles.buttonsContainer}>
                 <Button label={'Поздороваться'} theme={'hi'}/>
                 <Button label={'Созвон?'}/>
+            </View>
+
+            <View style={styles.optionsContainer}>
+                <View style={styles.optionRow}>
+                    <IconButton icon={'refresh'} label={'Презесвонить'}/>
+                    <CircleButton/>
+                    <IconButton icon={'save-alt'} label={'Сохрнанить'}/>
+                </View>
             </View>
 
             <StatusBar style="auto"/>
@@ -41,5 +51,13 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         // flex: 1
+    },
+    optionsContainer: {
+        // backgroundColor: 'red',
+        position: 'absolute',
+        bottom: 0
+    },
+    optionRow: {
+        flexDirection: 'row'
     }
 });
