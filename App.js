@@ -14,12 +14,16 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Drawer.Navigator initialRouteName="Главная">
-                <Drawer.Screen name="Главная" component={HomeScreen} />
-                <Drawer.Screen name="Настройки" component={SettingsScreen} />
-            </Drawer.Navigator>
-        </NavigationContainer>
+        <View style={{flex:1}}>
+            <NavigationContainer>
+                <Drawer.Navigator initialRouteName="Home">
+                    <Drawer.Screen name="Home" component={HomeScreen} options={{title:'Главная'}} />
+                    <Drawer.Screen name="Settings" component={SettingsScreen} options={{title:'Настройки'}}/>
+                </Drawer.Navigator>
+            </NavigationContainer>
+            <StatusBar style="auto"/>
+        </View>
+
         /*<View style={styles.container}>
             <View style={styles.greetingsContainer}>
                 <Text numberOfLines={2} style={{color: '#fff', textAlign: 'center', fontSize: 28}}>Привет, Андрей!{'\n'}Из

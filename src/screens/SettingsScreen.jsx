@@ -9,7 +9,7 @@ import {View, Text} from 'react-native';
 export function SettingsScreen() {
     return (
         <View>
-            <Text>View SettingsScreen</Text>
+            <Text>Страница настроек</Text>
         </View>
     );
 }

@@ -6,10 +6,10 @@
  */
 import {View, Text} from 'react-native';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     return (
         <View>
-            <Text>View HomeScreen</Text>
+            <Text>Главная страница</Text>
         </View>
     );
 }
