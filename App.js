@@ -4,12 +4,23 @@ import ImageViewer from "./src/ImageViewer";
 import Button from "./src/Button"
 import IconButton from "./src/IconButton";
 import CircleButton from "./src/CircleButton";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from "./src/screens/HomeScreen";
+import {SettingsScreen} from "./src/screens/SettingsScreen";
 
-const PlaceholderImage = require('./assets/and.jpg')
+// const PlaceholderImage = require('./assets/and.jpg')
+const Drawer = createDrawerNavigator();
 
 export default function App() {
     return (
-        <View style={styles.container}>
+        <NavigationContainer>
+            <Drawer.Navigator initialRouteName="Главная">
+                <Drawer.Screen name="Главная" component={HomeScreen} />
+                <Drawer.Screen name="Настройки" component={SettingsScreen} />
+            </Drawer.Navigator>
+        </NavigationContainer>
+        /*<View style={styles.container}>
             <View style={styles.greetingsContainer}>
                 <Text numberOfLines={2} style={{color: '#fff', textAlign: 'center', fontSize: 28}}>Привет, Андрей!{'\n'}Из
                     приложения Native React!</Text>
@@ -31,14 +42,15 @@ export default function App() {
             </View>
 
             <StatusBar style="auto"/>
-        </View>
+        </View>*/
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#25292e',
+        // backgroundColor: '#25292e',
+        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center'
     },
