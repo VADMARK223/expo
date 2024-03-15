@@ -8,6 +8,7 @@ import YnabScreen from "./src/screens/ynab/YnabScreen";
 import AddScreen from "./src/screens/AddScreen";
 import {Ionicons} from "@expo/vector-icons";
 import {ADD, FRIENDS, INBOX, MAIN, PROFILE} from "./src/utils/constants";
+import {PRIMARY_COLOR} from "./src/utils/styles";
 
 // const PlaceholderImage = require('./assets/and.jpg')
 // const Drawer = createDrawerNavigator();
@@ -15,7 +16,6 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
     return (
-        // <View style={{flex:1}}>
         <NavigationContainer>
             <Tab.Navigator initialRouteName="Home"
                            screenOptions={({route}) => ({
@@ -43,9 +43,9 @@ export default function App() {
 
                                        return <Ionicons name={iconName} size={size} color={color}/>
                                    },
-                                   tabBarActiveTintColor: 'tomato',
+                                   tabBarActiveTintColor: PRIMARY_COLOR,
                                    tabBarShowLabel: true,
-                                   tabBarLabel: ({focused, color}) => {
+                                   tabBarLabel: ({color}) => {
                                        let title = undefined
                                        switch (route.name) {
                                            case MAIN:
@@ -72,8 +72,16 @@ export default function App() {
                 <Tab.Screen name={MAIN} component={HomeScreen} options={{title: 'Главная'}}/>
                 <Tab.Screen name={FRIENDS} component={SettingsScreen} options={{title: 'Друзья'}}/>
                 <Tab.Screen name={ADD} component={AddScreen} options={{title: ''}}/>
-                <Tab.Screen name={INBOX} component={DictionaryScreen} options={{title: 'Входящие'}}/>
-                <Tab.Screen name={PROFILE} component={YnabScreen} options={{title: 'vadmark_in_kyrgyzstan'}}/>
+                <Tab.Screen name={INBOX} component={DictionaryScreen} options={{
+                    title: 'Входящие',
+                    tabBarBadge: '99 +'
+                }}/>
+                <Tab.Screen name={PROFILE} component={YnabScreen} options={{
+                    title: 'vadmark_in_kyrgyzstan',
+                    headerRight: () => (
+                        <Ionicons name={'menu'} size={24} style={{paddingRight: 30}}/>
+                    )
+                }}/>
             </Tab.Navigator>
             {/*<StatusBar style="auto"/>*/}
         </NavigationContainer>
