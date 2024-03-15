@@ -1,0 +1,5 @@
+export const MAIN = 'Main'
+export const FRIENDS = 'Friends'
+export const ADD = 'Add'
+export const INBOX = 'Inbox'
+export const PROFILE = 'Profile'

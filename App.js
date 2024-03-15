@@ -1,30 +1,83 @@
-import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Text, View} from 'react-native';
-import ImageViewer from "./src/ImageViewer";
-import Button from "./src/Button"
-import IconButton from "./src/IconButton";
-import CircleButton from "./src/CircleButton";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import {StyleSheet, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from "./src/screens/HomeScreen";
 import {SettingsScreen} from "./src/screens/SettingsScreen";
 import DictionaryScreen from "./src/screens/dictionary/DictionaryScreen";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import YnabScreen from "./src/screens/ynab/YnabScreen";
+import AddScreen from "./src/screens/AddScreen";
+import {Ionicons} from "@expo/vector-icons";
+import {ADD, FRIENDS, INBOX, MAIN, PROFILE} from "./src/utils/constants";
 
 // const PlaceholderImage = require('./assets/and.jpg')
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator()
 
 export default function App() {
     return (
         // <View style={{flex:1}}>
-            <NavigationContainer>
-                <Drawer.Navigator initialRouteName="Home">
-                    <Drawer.Screen name="Home" component={HomeScreen} options={{title:'Главная'}} />
-                    <Drawer.Screen name="Settings" component={SettingsScreen} options={{title:'Настройки'}}/>
-                    <Drawer.Screen name="Dictionary" component={DictionaryScreen} options={{title:'Словарь'}}/>
-                </Drawer.Navigator>
-                {/*<StatusBar style="auto"/>*/}
-            </NavigationContainer>
-            // <StatusBar style="auto"/>
+        <NavigationContainer>
+            <Tab.Navigator initialRouteName="Home"
+                           screenOptions={({route}) => ({
+                                   tabBarIcon: ({focused, color}) => {
+                                       let iconName = ''
+                                       let size = 24
+                                       switch (route.name) {
+                                           case MAIN:
+                                               iconName = focused ? 'home-sharp' : 'home-outline'
+                                               break
+                                           case FRIENDS:
+                                               iconName = focused ? 'add-circle' : 'add-circle-outline'
+                                               break
+                                           case ADD:
+                                               iconName = focused ? 'add-circle' : 'add-circle-outline'
+                                               size = 54
+                                               break
+                                           case INBOX:
+                                               iconName = focused ? 'chatbox-ellipses-sharp' : 'chatbox-ellipses-outline'
+                                               break
+                                           case PROFILE:
+                                               iconName = focused ? 'person-sharp' : 'person-outline'
+                                               break
+                                       }
+
+                                       return <Ionicons name={iconName} size={size} color={color}/>
+                                   },
+                                   tabBarActiveTintColor: 'tomato',
+                                   tabBarShowLabel: true,
+                                   tabBarLabel: ({focused, color}) => {
+                                       let title = undefined
+                                       switch (route.name) {
+                                           case MAIN:
+                                               title = 'Главная'
+                                               break
+                                           case FRIENDS:
+                                               title = 'Друзья'
+                                               break
+                                           case ADD:
+                                               title = ''
+                                               break
+                                           case INBOX:
+                                               title = 'Входящие'
+                                               break
+                                           case PROFILE:
+                                               title = 'Профиль'
+                                               break
+                                       }
+                                       return title ? <Text style={{color: color}}>{title}</Text> : undefined
+                                   }
+                               }
+                           )}
+            >
+                <Tab.Screen name={MAIN} component={HomeScreen} options={{title: 'Главная'}}/>
+                <Tab.Screen name={FRIENDS} component={SettingsScreen} options={{title: 'Друзья'}}/>
+                <Tab.Screen name={ADD} component={AddScreen} options={{title: ''}}/>
+                <Tab.Screen name={INBOX} component={DictionaryScreen} options={{title: 'Входящие'}}/>
+                <Tab.Screen name={PROFILE} component={YnabScreen} options={{title: 'vadmark_in_kyrgyzstan'}}/>
+            </Tab.Navigator>
+            {/*<StatusBar style="auto"/>*/}
+        </NavigationContainer>
+        // <StatusBar style="auto"/>
         // </View>
 
         /*<View style={styles.container}>
