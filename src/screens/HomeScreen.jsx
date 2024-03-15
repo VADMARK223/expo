@@ -4,12 +4,13 @@
  * @author Markitanov Vadim
  * @since 14.03.2024
  */
-import {View, Text} from 'react-native';
+import {Alert, View} from 'react-native';
+import {Button} from "@ant-design/react-native";
 
 export default function HomeScreen({navigation}) {
     return (
         <View>
-            <Text>Главная страница</Text>
+            <Button type={'primary'} onPress={()=>Alert.alert('Good')}>Temp</Button>
         </View>
     );
 }
