@@ -8,21 +8,24 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from "./src/screens/HomeScreen";
 import {SettingsScreen} from "./src/screens/SettingsScreen";
+import DictionaryScreen from "./src/screens/dictionary/DictionaryScreen";
 
 // const PlaceholderImage = require('./assets/and.jpg')
 const Drawer = createDrawerNavigator();
 
 export default function App() {
     return (
-        <View style={{flex:1}}>
+        // <View style={{flex:1}}>
             <NavigationContainer>
                 <Drawer.Navigator initialRouteName="Home">
                     <Drawer.Screen name="Home" component={HomeScreen} options={{title:'Главная'}} />
                     <Drawer.Screen name="Settings" component={SettingsScreen} options={{title:'Настройки'}}/>
+                    <Drawer.Screen name="Dictionary" component={DictionaryScreen} options={{title:'Словарь'}}/>
                 </Drawer.Navigator>
+                {/*<StatusBar style="auto"/>*/}
             </NavigationContainer>
-            <StatusBar style="auto"/>
-        </View>
+            // <StatusBar style="auto"/>
+        // </View>
 
         /*<View style={styles.container}>
             <View style={styles.greetingsContainer}>

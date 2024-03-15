@@ -4,12 +4,14 @@
  * @author Markitanov Vadim
  * @since 14.03.2024
  */
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 
 export function SettingsScreen() {
     return (
-        <View>
-            <Text>Страница настроек</Text>
-        </View>
+        <SafeAreaView>
+            <ScrollView>
+                <Text>1</Text>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
