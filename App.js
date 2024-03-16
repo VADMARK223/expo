@@ -1,14 +1,14 @@
 import {StyleSheet, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from "./src/screens/HomeScreen";
-import {SettingsScreen} from "./src/screens/SettingsScreen";
 import DictionaryScreen from "./src/screens/dictionary/DictionaryScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import YnabScreen from "./src/screens/ynab/YnabScreen";
 import AddScreen from "./src/screens/AddScreen";
 import {Ionicons} from "@expo/vector-icons";
 import {ADD, FRIENDS, INBOX, MAIN, PROFILE} from "./src/utils/constants";
 import {PRIMARY_COLOR} from "./src/utils/styles";
+import ProfileScreen from "./src/screens/profile/ProfileScreen";
+import FriendsScreen from "./src/screens/friends/FriendsScreen";
 
 // const PlaceholderImage = require('./assets/and.jpg')
 // const Drawer = createDrawerNavigator();
@@ -70,13 +70,13 @@ export default function App() {
                            )}
             >
                 <Tab.Screen name={MAIN} component={HomeScreen} options={{title: 'Главная'}}/>
-                <Tab.Screen name={FRIENDS} component={SettingsScreen} options={{title: 'Друзья'}}/>
+                <Tab.Screen name={FRIENDS} component={FriendsScreen} options={{title: 'Друзья'}}/>
                 <Tab.Screen name={ADD} component={AddScreen} options={{title: ''}}/>
                 <Tab.Screen name={INBOX} component={DictionaryScreen} options={{
                     title: 'Входящие',
                     tabBarBadge: '99 +'
                 }}/>
-                <Tab.Screen name={PROFILE} component={YnabScreen} options={{
+                <Tab.Screen name={PROFILE} component={ProfileScreen} options={{
                     title: 'vadmark_in_kyrgyzstan',
                     headerRight: () => (
                         <Ionicons name={'menu'} size={24} style={{paddingRight: 30}}/>
@@ -85,6 +85,7 @@ export default function App() {
             </Tab.Navigator>
             {/*<StatusBar style="auto"/>*/}
         </NavigationContainer>
+
         // <StatusBar style="auto"/>
         // </View>
 
