@@ -1,8 +1,10 @@
-import {StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {useEffect, useState} from "react";
+import * as Font from 'expo-font'
 import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from "./src/screens/HomeScreen";
 import DictionaryScreen from "./src/screens/dictionary/DictionaryScreen";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import AddScreen from "./src/screens/AddScreen";
 import {Ionicons} from "@expo/vector-icons";
 import {ADD, FRIENDS, INBOX, MAIN, PROFILE} from "./src/utils/constants";
@@ -15,76 +17,96 @@ import FriendsScreen from "./src/screens/friends/FriendsScreen";
 const Tab = createBottomTabNavigator()
 
 export default function App() {
-    return (
-        <NavigationContainer>
-            <Tab.Navigator initialRouteName="Home"
-                           screenOptions={({route}) => ({
-                                   tabBarIcon: ({focused, color}) => {
-                                       let iconName = ''
-                                       let size = 24
-                                       switch (route.name) {
-                                           case MAIN:
-                                               iconName = focused ? 'home-sharp' : 'home-outline'
-                                               break
-                                           case FRIENDS:
-                                               iconName = focused ? 'add-circle' : 'add-circle-outline'
-                                               break
-                                           case ADD:
-                                               iconName = focused ? 'add-circle' : 'add-circle-outline'
-                                               size = 54
-                                               break
-                                           case INBOX:
-                                               iconName = focused ? 'chatbox-ellipses-sharp' : 'chatbox-ellipses-outline'
-                                               break
-                                           case PROFILE:
-                                               iconName = focused ? 'person-sharp' : 'person-outline'
-                                               break
-                                       }
+    const [isReady, setIsReady] = useState(false);
+    useEffect(() => {
+        const loadFonts = async () => {
+            await Font.loadAsync({
+                antoutline: require('@ant-design/icons-react-native/fonts/antoutline.ttf'),
+                antfill: require('@ant-design/icons-react-native/fonts/antfill.ttf'),
+            });
+            setIsReady(true);
+        };
+        loadFonts()
+    }, []);
 
-                                       return <Ionicons name={iconName} size={size} color={color}/>
-                                   },
-                                   tabBarActiveTintColor: PRIMARY_COLOR,
-                                   tabBarShowLabel: true,
-                                   tabBarLabel: ({color}) => {
-                                       let title = undefined
-                                       switch (route.name) {
-                                           case MAIN:
-                                               title = 'Главная'
-                                               break
-                                           case FRIENDS:
-                                               title = 'Друзья'
-                                               break
-                                           case ADD:
-                                               title = ''
-                                               break
-                                           case INBOX:
-                                               title = 'Входящие'
-                                               break
-                                           case PROFILE:
-                                               title = 'Профиль'
-                                               break
+    return (
+        isReady === false ?
+            <SafeAreaView>
+                <Text>Loading fonts...</Text>
+            </SafeAreaView>
+
+            :
+            <NavigationContainer>
+                <Tab.Navigator initialRouteName="Home"
+                               screenOptions={({route}) => ({
+                                       tabBarIcon: ({focused, color}) => {
+                                           let iconName = ''
+                                           let size = 24
+                                           switch (route.name) {
+                                               case MAIN:
+                                                   iconName = focused ? 'home-sharp' : 'home-outline'
+                                                   break
+                                               case FRIENDS:
+                                                   iconName = focused ? 'add-circle' : 'add-circle-outline'
+                                                   break
+                                               case ADD:
+                                                   iconName = focused ? 'add-circle' : 'add-circle-outline'
+                                                   size = 54
+                                                   break
+                                               case INBOX:
+                                                   iconName = focused ? 'chatbox-ellipses-sharp' : 'chatbox-ellipses-outline'
+                                                   break
+                                               case PROFILE:
+                                                   iconName = focused ? 'person-sharp' : 'person-outline'
+                                                   break
+                                           }
+
+                                           return <Ionicons name={iconName} size={size} color={color}/>
+                                       },
+                                       tabBarActiveTintColor: PRIMARY_COLOR,
+                                       tabBarShowLabel: true,
+                                       tabBarLabel: ({color}) => {
+                                           let title = undefined
+                                           switch (route.name) {
+                                               case MAIN:
+                                                   title = 'Главная'
+                                                   break
+                                               case FRIENDS:
+                                                   title = 'Друзья'
+                                                   break
+                                               case ADD:
+                                                   title = ''
+                                                   break
+                                               case INBOX:
+                                                   title = 'Входящие'
+                                                   break
+                                               case PROFILE:
+                                                   title = 'Профиль'
+                                                   break
+                                           }
+                                           return title ? <Text style={{color: color}}>{title}</Text> : undefined
                                        }
-                                       return title ? <Text style={{color: color}}>{title}</Text> : undefined
                                    }
-                               }
-                           )}
-            >
-                <Tab.Screen name={MAIN} component={HomeScreen} options={{title: 'Главная'}}/>
-                <Tab.Screen name={FRIENDS} component={FriendsScreen} options={{title: 'Друзья'}}/>
-                <Tab.Screen name={ADD} component={AddScreen} options={{title: ''}}/>
-                <Tab.Screen name={INBOX} component={DictionaryScreen} options={{
-                    title: 'Входящие',
-                    tabBarBadge: '99 +'
-                }}/>
-                <Tab.Screen name={PROFILE} component={ProfileScreen} options={{
-                    title: 'vadmark_in_kyrgyzstan',
-                    headerRight: () => (
-                        <Ionicons name={'menu'} size={24} style={{paddingRight: 30}}/>
-                    )
-                }}/>
-            </Tab.Navigator>
-            {/*<StatusBar style="auto"/>*/}
-        </NavigationContainer>
+                               )}
+                >
+                    <Tab.Screen name={MAIN} component={HomeScreen} options={{title: 'Главная'}}/>
+                    <Tab.Screen name={FRIENDS} component={FriendsScreen} options={{title: 'Друзья'}}/>
+                    <Tab.Screen name={ADD} component={AddScreen} options={{title: ''}}/>
+                    <Tab.Screen name={INBOX} component={DictionaryScreen} options={{
+                        title: 'Входящие',
+                        tabBarBadge: '99 +'
+                    }}/>
+                    <Tab.Screen name={PROFILE} component={ProfileScreen} options={{
+                        title: 'vadmark_in_kyrgyzstan',
+                        headerRight: () => (
+                            <Ionicons name={'menu'} size={24} style={{paddingRight: 30}}/>
+                        )
+                    }}/>
+                </Tab.Navigator>
+                {/*<StatusBar style="auto"/>*/}
+            </NavigationContainer>
+
+
 
         // <StatusBar style="auto"/>
         // </View>
